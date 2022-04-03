@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../static/style.css">    
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>    
+    <script>            
+        $(document).ready (function () {                
+            $('.btnAdd').click (function () {                                        
+                $('.add-menu-button').append (                        
+                    '<input type="text" name="_menu"><input type="number" name="_price"><input type="button" class="btnRemove" value="Remove"><br>'                    
+                ); // end append                            
+                $('.btnRemove').on('click', function () { 
+                    $(this).prev().remove (); // remove the textbox
+                    $(this).prev().remove (); // remove the textbox
+                    $(this).next ().remove (); // remove the <br>
+                    $(this).remove (); // remove the button
+                });
+            }); // end click                                            
+        }); // end ready        
+    </script>
+  </head>
+  <body>        
+      <header class="add_header">
+          <h1 class="h3 mb-3 fw-normal add-header__title">메뉴 추가하기</h1>
+          <p class="add-header__text">
+              추가할 식당의 메뉴와 가격을 입력해주세요
+          <img class=simson src="https://media2.giphy.com/media/xT5LMT1HVUSbpLKYAU/giphy.gif?cid=ecf05e474fwzf2zq3bfvzetyls99fw9tnvdqnwm4eubkjdrn&rid=giphy.gif&ct=g" width="200px" height="auto">          
+      </header>
+      <main>
+          <form class="form-add-menu" id="adding-menu-form" action="/add_menu_form" method="post"> 
+            <div class="add-menu-button">
+            <input type="text" class="form-control" name="_id" id="floatingInput" Value="{{info['ID']}}">
+            <input type="text" name="_menu"><input type="number" name="_price"><input type="button" class="btnAdd" value="Add"><br>          
+            </div>
+            <input class="w-100 btn btn-lg btn-primary add_menu_submit" type="submit" value="가게 추가하기">            
+          </form>          
+      </main>    
+  </body>
+</html>

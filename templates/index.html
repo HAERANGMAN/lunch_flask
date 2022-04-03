@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log-in</title>
+    <link rel="stylesheet" href="../static/style.css" />    
+    <link rel="stylesheet" href="../static/sakura/jquery-sakura.css" type="text/css"/>
+    
+</head>
+<body>
+    <header class="welcome-header">
+        <h1 class="welcome-header__title">Lunch For Ubion</h1>
+        <p class="welcome-header__text">
+          Sorry for inconvinence!<br>
+          We are checking your ID<br>
+          to prepare for limited traffic.
+        </p>
+    </header>
+    <form id="login-form" method="post" class="post-form" action="/check">
+        <input name="_username" type="text" placeholder="ID" />
+        <input name="_password" type="password" placeholder="Password" />
+        <input type="submit" value="Enter">                                            
+    </form>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="../static/sakura/jquery-sakura.js"></script>
+    <script>
+    $(function(){
+     $('body').sakura();
+    });
+    </script>
+    <!-- python -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <script>
+            alert('{{ message }}');
+            </script>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}    
+</body>
+</html>

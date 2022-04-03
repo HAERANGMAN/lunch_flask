@@ -1,0 +1,19 @@
+.nav__notification,
+.user-componant__notice__new {
+  background-color: rgb(212, 42, 0);
+  color: white;
+  font-weight: 600;
+  width: 22px;
+  height: 22px;
+  border-radius: 11px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+}
+
+.user-componant__notice__new {
+  width: 26px;
+  height: 26px;
+  border-radius: 13px;
+}

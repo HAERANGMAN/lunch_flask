@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>        
+    <link rel="stylesheet" href="../static/style.css" />    
+    <style>
+        /* <리스트가 있는 지도> */
+        #mapwrap{position:relative;overflow:hidden;}
+        .category, .category *{margin:0;padding:0;color:#000;}   
+        .category {position:absolute;overflow:hidden;top:10px;left:10px;width:300px;height:50px;z-index:10;border:1px solid black;font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:12px;text-align:center;background-color:#fff;}
+        .category .menu_selected {background:#FF5F4A;color:#fff;border-left:1px solid #915B2F;border-right:1px solid #915B2F;margin:0 -1px;} 
+        .category li{list-style:none;float:left;width:50px;height:45px;padding-top:5px;cursor:pointer;} 
+        .category .ico_comm {display:block;margin:0 auto 2px;width:22px;height:26px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png') no-repeat;} 
+        .category .ico_All {background-position:-10px 0;}  
+        .category .ico_K {background-position:-10px 0;}  
+        .category .ico_J {background-position:-10px 0;}  
+        .category .ico_C {background-position:-10px 0;}  
+        .category .ico_E {background-position:-10px 0;}  
+        .category .ico_D {background-position:-10px 0;}  
+        /* <닫기가 가능한 커스텀오버레이> */
+        .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+        .wrap * {padding: 0;margin: 0;}
+        .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+        .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+        .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+        .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+        .info .close:hover {cursor: pointer;}
+        .info .body {position: relative;overflow: hidden;}
+        .info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
+        .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+        .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
+        .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+        .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+        .info .link {color: #5085BB;}       
+    </style>    
+</head>
+<body id="menu_body">
+    <div class="menu_top">
+        <span>종목선정</span>
+    </div>
+    <div id="mapwrap"> 
+        <!-- 지도가 표시될 div -->
+        <div id="map" style="width:95%;height:800px;"></div>
+        <!-- 지도 위에 표시될 마커 카테고리 -->
+        <div class="category">
+            <ul>
+                <li id="AllMenu" onclick="changeMarker('All')">
+                    <span class="ico_comm ico_All"></span>
+                    전부
+                </li>
+                <li id="KMenu" onclick="changeMarker('K')">
+                    <span class="ico_comm ico_K"></span>
+                    한식
+                </li>
+                <li id="JMenu" onclick="changeMarker('J')">
+                    <span class="ico_comm ico_J"></span>
+                    일식
+                </li>
+                <li id="CMenu" onclick="changeMarker('C')">
+                    <span class="ico_comm ico_C"></span>
+                    중식
+                </li>
+                <li id="EMenu" onclick="changeMarker('E')">
+                    <span class="ico_comm ico_E"></span>
+                    기타
+                </li>
+                <li id="DMenu" onclick="changeMarker('D')">
+                    <span class="ico_comm ico_D"></span>
+                    회식
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- <div class="menu">        
+        <div class="menu_1">
+            <div class="menu_">
+                <img class=menu_img src="../static/img/bibimbap.png" alt="비빔밥">
+                <span>한식</span>
+            </div>
+            <div class="menu_">                
+                <img class=menu_img src="../static/img/sushi.png" alt="쭝국">
+                <span>일식</span>
+            </div>
+        </div>
+        <div class="menu_2">
+            <div class="menu_">
+                <img class=menu_img src="../static/img/china.png" alt="쭝국">
+                <span>중식</span>
+            </div>
+            <div class="menu_">
+                <img class=menu_img src="../static/img/soju.png" alt="쭝국">
+                <span>회식</span>                
+            </div>        
+        </div>
+    </div> -->
+    <div class="_map">
+        <a class="add" method="post" href="/add_info">가게 추가하기</a>    
+    </div>
+    <!-- Kakao Map API Key -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=aad869da7d26bb0fdc00af50f4c40884&libraries=services"></script>    
+    <script src="../static/maps_js/menu_list.js"></script>             
+    <script src="../static/maps_js/menu_over.js"></script>
+    <script>
+    // 커스텀 오버레이에 표시할 컨텐츠 입니다
+    // 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
+    // 별도의 이벤트 메소드를 제공하지 않습니다 
+    var content = '<div class="wrap">' + 
+                '    <div class="info">' + 
+                '        <div class="title">' + 
+                '            {{name}}' + 
+                '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+                '        </div>' + 
+                '        <div class="body">' + 
+                '            <div class="img">' +
+                '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
+                '           </div>' + 
+                '            <div class="desc">' + 
+                '                <div class="menu1">{{menu}} {{price}}</div>' + 
+                '                <div class="menu2">{{menu}} {{price}}</div>' + 
+                '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' + 
+                '            </div>' + 
+                '        </div>' + 
+                '    </div>' +    
+                '</div>';
+
+    // 마커 위에 커스텀오버레이를 표시합니다
+    // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+    var overlay = new kakao.maps.CustomOverlay({
+        content: content,
+        map: map,
+        position: marker.getPosition()       
+    });
+    </script>
+</body>
+</html>
