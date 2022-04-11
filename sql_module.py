@@ -3,11 +3,11 @@ import pymysql
 class Database():            
     def __init__(self):
         self._db= pymysql.connect(
-        host="ls-a20f4420f7aa9967e25c1e0aecf4d8b641af5f13.cgtgapkuvqbt.ap-northeast-2.rds.amazonaws.com",
-        db="ubion",
-        user = "ubion",
-        password= "1234",
-        port = 3306)
+    host="ls-a20f4420f7aa9967e25c1e0aecf4d8b641af5f13.cgtgapkuvqbt.ap-northeast-2.rds.amazonaws.com",
+    db="dbmaster",
+    user = "dbmasteruser",
+    password= "r,3Ipn|O7mL2vL4S)9Q~;7QVdHMV6R9j",
+    port = 3306)
         self.cursor = self._db.cursor(pymysql.cursors.DictCursor)        
         #딕셔너리 형태로 가져옴
 
@@ -24,5 +24,4 @@ class Database():
 
     def commit(self):
         self._db.commit()
-
 

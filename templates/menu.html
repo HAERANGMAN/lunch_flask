@@ -102,29 +102,31 @@
     <!-- Kakao Map API Key -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=aad869da7d26bb0fdc00af50f4c40884&libraries=services"></script>    
     <script src="../static/maps_js/menu_list.js"></script>             
-    <script src="../static/maps_js/menu_over.js"></script>
+    <!-- <script src="../static/maps_js/menu_over.js"></script> -->
+    <!-- 출처는 위에 menu와 같지만 파이썬 사용을 위해 직접 html 하단에 삽입 -->
     <script>
     // 커스텀 오버레이에 표시할 컨텐츠 입니다
     // 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
     // 별도의 이벤트 메소드를 제공하지 않습니다 
-    var content = '<div class="wrap">' + 
-                '    <div class="info">' + 
-                '        <div class="title">' + 
-                '            {{name}}' + 
-                '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
-                '        </div>' + 
-                '        <div class="body">' + 
-                '            <div class="img">' +
-                '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
-                '           </div>' + 
-                '            <div class="desc">' + 
-                '                <div class="menu1">{{menu}} {{price}}</div>' + 
-                '                <div class="menu2">{{menu}} {{price}}</div>' + 
-                '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' + 
-                '            </div>' + 
-                '        </div>' + 
-                '    </div>' +    
-                '</div>';
+    var content = '{{pop_over}}';
+                // '<div class="wrap">' + 
+                // '    <div class="info">' + 
+                // '        <div class="title">' + 
+                // '            {{name}}' + 
+                // '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+                // '        </div>' + 
+                // '        <div class="body">' + 
+                // '            <div class="img">' +
+                // '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
+                // '           </div>' + 
+                // '            <div class="desc">' + 
+                // '                <div class="menu1">{{menu}} {{price}}</div>' + 
+                // '                <div class="menu2">{{menu}} {{price}}</div>' + 
+                // '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' + 
+                // '            </div>' + 
+                // '        </div>' + 
+                // '    </div>' +    
+                // '</div>';
 
     // 마커 위에 커스텀오버레이를 표시합니다
     // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다

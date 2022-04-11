@@ -1,29 +1,5 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
-import pymysql
-
-class Database():            
-    def __init__(self):
-        self._db= pymysql.connect(
-        user = "root",
-        passwd= "root",
-        host="localhost",
-        db="ubion")
-        self.cursor = self._db.cursor(pymysql.cursors.DictCursor)        
-        #딕셔너리 형태로 가져옴
-
-    def execute(self, _sql, _values={}):###
-        self.cursor.execute(_sql, _values)        
-        #밸류값이 없을경우 빈딕셔너리로 놓기위함
-        #sql에서는 디폴트로 딕셔너리를 많이쓰기 때문에 dic을씀(list무관)
-
-    def executeAll(self, _sql, _values={}):
-        self.cursor.execute(_sql, _values)            
-        self.result = self.cursor.fetchall()### 
-        #fetchall은 딕셔너리나 리스트로 나한테 바꿔서 보내줌, 출력시 사용 
-        return self.result
-
-    def commit(self):
-        self._db.commit()
+from sql_module import * 
 
 #왜 갑자기 secret_key를 요구했을까? 
 ##여러번실행했기 때문...
@@ -39,6 +15,7 @@ def login():
     request.method = 'POST'      
     return redirect(url_for("menu"))
 
+
 # 원본임 다만들고 위에 로그인과 교체
 # def login():    
 #     request.method = 'POST'      
@@ -48,6 +25,38 @@ def login():
 #     else:
 #         flash("다시 입력해주세요!")            
 #         return redirect(url_for("index"))
+
+
+
+# @app.route("/login", methods=["POST"])
+# def login():        
+#     #######################문제#########################
+#     # db에서 id와 비번을 가져오기
+#     # select문으로 조회
+#     # 결과값이 존재하면 return login_not 없으면 fail
+#     ####################################################
+#     ##내가 생각했던 방식은 2가지였음
+#     ##(1.리스트를가져와서 비교대조, 2.input을 보내서 boolean)
+#     #기본적인 방식은 노션에 있음!!        
+#     #count로 0,1 값을 확인할수 있음 => 하지만 결국 데이터값을 가져와서 처리해야 하는 건 마찬가지
+#     #count값의 경우 다중쿼리나 계산한 값을 활용할때 주로 사용하게됨
+#     _id = request.form["input_id"]
+#     _pw = request.form["input_pw"]
+#     search_sql = '''
+#         SELECT * From user_info WHERE ID = %s AND password = %s
+#     '''
+#     _values=[_id, _pw]    
+#     db_= mod_sql.Database()
+#     result = db_.executeAll(search_sql, _values) 
+#     if result:
+#         flash("환영합니다!")
+#         return render_template("welcome.html", 
+#                             name = result[0]["name"], id=result[0]["ID"])
+#         #딕셔너리 형태로 가져온 데이터기 때문에 컬럼명으로검색함
+#     else:
+#         flash("다시입력해주세요!")
+#         return redirect(url_for("index"))
+
 
 @app.route('/menu')
 def menu():

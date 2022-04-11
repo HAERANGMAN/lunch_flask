@@ -8,16 +8,10 @@ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 
 
 // ============================좌표리스트============================
-// 전부 마커가 표시될 좌표 배열입니다
-var AllPositions = [ 
-    new kakao.maps.LatLng(37.499590490909185, 127.0263723554437),
-    new kakao.maps.LatLng(37.49754540521486, 127.02546694890695)                
-];
-
 // 한식 마커가 표시될 좌표 배열입니다
 var KPositions = [ 
-    new kakao.maps.LatLng(37.499590490909185, 127.0263723554437),
-    new kakao.maps.LatLng(37.49754540521486, 127.02546694890695)                
+    new kakao.maps.LatLng(37.4843, 126.91),
+    new kakao.maps.LatLng(37.4842, 126.92)                
 ];
 
 // 일식 마커가 표시될 좌표 배열입니다
@@ -43,6 +37,13 @@ var DPositions = [
     new kakao.maps.LatLng(37.49966168796031, 127.03007039430118),
     new kakao.maps.LatLng(37.497680616783086, 127.02518427952202)                       
 ];    
+
+// 전부 마커가 표시될 좌표 배열입니다
+var AllPositions = [ KPositions, JPositions, CPositions, EPositions, DPositions ]; //원래 개별이었는데 하나로 다 합침
+// var AllPositions = [ 
+//     new kakao.maps.LatLng(37.499590490909185, 127.0263723554437),
+//     new kakao.maps.LatLng(37.49754540521486, 127.02546694890695)                
+// ];
 // ============================좌표리스트============================
 
 
